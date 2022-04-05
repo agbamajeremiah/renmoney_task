@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:renmoney_task/core/core.dart';
-import 'features/home/home.dart';
+import 'package:renmoney_task/features/transaction/presentation/pages/pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           AppColors.colorScratch,
         ),
       ),
-      home: const HomeScreen(),
+      home: const TransactionsScreen(),
     );
   }
 }
