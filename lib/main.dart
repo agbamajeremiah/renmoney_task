@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:renmoney_task/core/core.dart';
-import 'package:renmoney_task/features/transaction/presentation/pages/pages.dart';
+import 'package:renmoney_task/features/transaction/transaction.dart';
 
 void main() {
+  configureDependecies();
   runApp(const MyApp());
 }
 
