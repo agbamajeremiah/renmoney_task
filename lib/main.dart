@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Renmoney Task',
       theme: ThemeData(
+        fontFamily: 'Product Sans',
         primarySwatch: const MaterialColor(
           0xFF7765C4,
           AppColors.colorScratch,
