@@ -8,8 +8,14 @@ class AppColors {
   // The background color
   static const background = Color(0xffE5E7EB);
 
+  // The background2 color
+  static const background2 = Color(0xffFAF9FF);
+
   // The dark text color
   static const darkText = Color(0xff3B3B3B);
+
+  // The Light text color
+  static const lightText = Color(0xff707070);
 
   // The green color
   static const green = Color(0xff65C4AD);
