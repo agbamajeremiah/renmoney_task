@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:renmoney_task/core/core.dart';
 import 'features/home/home.dart';
 
 void main() {
@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Renmoney Task',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: const MaterialColor(
+          0xFF7765C4,
+          AppColors.colorScratch,
+        ),
       ),
       home: const HomeScreen(),
     );
