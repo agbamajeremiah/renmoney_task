@@ -11,6 +11,8 @@ environment:
 
 
 dependencies:
+  gap: ^2.0.0
+  flutter_svg: ^1.0.3
   flutter:
     sdk: flutter
 
