@@ -17,7 +17,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
   final TransactionRemoteDataSource transactionRemoteDataSource;
 
   @override
-  Future<Either<Failure, List>> getTransactions() async {
+  Future<Either<Failure, List<TransactionModel>>> getTransactions() async {
     try {
       final response = await transactionRemoteDataSource.getTransactions();
       return Right(response);
@@ -32,6 +32,8 @@ class TransactionRepositoryImpl implements TransactionRepository {
           return Left(
             ServerFailure(
               message: (e.response!.data as Map<String, dynamic>)['error']
+                      as String? ??
+                  (e.response!.data as Map<String, dynamic>)['message']
                       as String? ??
                   'Service unavailable, please try again!',
             ),

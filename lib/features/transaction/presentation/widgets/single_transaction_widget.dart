@@ -9,15 +9,35 @@ import 'package:renmoney_task/features/transaction/transaction.dart';
 class SingleTransactionWidget extends StatelessWidget {
   const SingleTransactionWidget({
     Key? key,
+    required this.item,
   }) : super(key: key);
+  final TransactionEntity item;
 
   @override
   Widget build(BuildContext context) {
+    final tranxType = mapTransactionType(item.type);
     return GestureDetector(
       onTap: (() => Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => const TransactionDetailsScreen(),
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  TransactionDetailsScreen(
+                params: item,
+              ),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(0.0, 1.0);
+                const end = Offset.zero;
+                const curve = Curves.easeInOut;
+
+                var tween = Tween(begin: begin, end: end)
+                    .chain(CurveTween(curve: curve));
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
             ),
           )),
       child: Container(
@@ -31,67 +51,109 @@ class SingleTransactionWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                    color: AppColors.purple.withOpacity(0.10),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      AppAssets.arrowDown,
+            Expanded(
+              flex: 3,
+              child: Row(
+                children: [
+                  Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                      color: tranxType == TransactionType.deposit
+                          ? AppColors.blue.withOpacity(0.10)
+                          : tranxType == TransactionType.withdrawal
+                              ? AppColors.purple.withOpacity(0.10)
+                              : AppColors.brown.withOpacity(0.10),
+                      shape: BoxShape.circle,
                     ),
-                  ),
-                ),
-                const Gap(8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text.rich(
-                      TextSpan(
-                        children: <InlineSpan>[
-                          TextSpan(
-                            text: 'Money Transfer to ',
-                            style: TextStyle(
-                              color: AppColors.darkText,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'John',
-                            style: TextStyle(
-                              color: AppColors.purple,
-                            ),
-                          ),
-                        ],
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                        ),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        tranxType == TransactionType.deposit
+                            ? AppAssets.arrowDown
+                            : tranxType == TransactionType.withdrawal
+                                ? AppAssets.arrowUp
+                                : AppAssets.phoneWithArrow,
                       ),
                     ),
-                    const Gap(8),
-                    TextRegular(
-                      '23rd Oct. 2020',
-                      fontSize: 11,
-                      color: AppColors.lightText,
-                    )
-                  ],
-                ),
-              ],
+                  ),
+                  const Gap(8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            children: <InlineSpan>[
+                              TextSpan(
+                                text: item.comment ?? 'No description',
+                                style: const TextStyle(
+                                  color: AppColors.darkText,
+                                ),
+                              ),
+                              // TextSpan(
+                              //   text: 'John',
+                              //   style: const TextStyle(
+                              //     color: AppColors.purple,
+                              //   ),
+                              // ),
+                            ],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13,
+                            ),
+                          ),
+                          maxLines: 1,
+                        ),
+                        const Gap(8),
+                        TextRegular(
+                          DateUtil.formatDisplayDate(item.entryDate),
+                          fontSize: 11,
+                          color: AppColors.lightText,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            TextBold(
-              '- ₦ 50,000',
-              fontSize: 14,
-              color: AppColors.brown,
+            const Gap(5),
+            Expanded(
+              flex: 1,
+              child: TextBold(
+                AmountUtil.formatAmount(item.amount),
+                fontSize: 14,
+                color: tranxType == TransactionType.withdrawal
+                    ? AppColors.brown
+                    : AppColors.green,
+                textAlign: TextAlign.right,
+              ),
             )
           ],
         ),
       ),
     );
   }
+}
+
+enum TransactionType {
+  bills,
+  deposit,
+  withdrawal,
+}
+
+TransactionType mapTransactionType(String type) {
+  TransactionType transactionType;
+  switch (type) {
+    case 'WITHDRAWAL':
+    case 'TRANSFER':
+      transactionType = TransactionType.withdrawal;
+      break;
+    case 'DEPOSIT':
+      transactionType = TransactionType.deposit;
+      break;
+    default:
+      transactionType = TransactionType.bills;
+  }
+  return transactionType;
 }

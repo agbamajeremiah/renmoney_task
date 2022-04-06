@@ -8,7 +8,8 @@ import 'package:renmoney_task/features/transaction/transaction.dart';
 /// from the remote server
 
 @lazySingleton
-class GetTransactionsUsecase implements UseCase<List, NoParams> {
+class GetTransactionsUsecase
+    implements UseCase<List<TransactionEntity>, NoParams> {
   /// [GetTransactionsUsecase] constructor
   GetTransactionsUsecase(this.transactionRepository);
 
@@ -18,7 +19,7 @@ class GetTransactionsUsecase implements UseCase<List, NoParams> {
   final TransactionRepository transactionRepository;
 
   @override
-  Future<Either<Failure, List>> call(NoParams params) {
+  Future<Either<Failure, List<TransactionEntity>>> call(NoParams params) {
     return transactionRepository.getTransactions();
   }
 }
