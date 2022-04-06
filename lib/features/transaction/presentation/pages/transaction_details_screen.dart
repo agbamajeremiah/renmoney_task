@@ -5,7 +5,9 @@ import 'package:renmoney_task/features/transaction/transaction.dart';
 
 /// [TransactionDetailsScreen] display details of a single transaction
 class TransactionDetailsScreen extends StatelessWidget {
-  const TransactionDetailsScreen({Key? key}) : super(key: key);
+  const TransactionDetailsScreen({Key? key, required this.params})
+      : super(key: key);
+  final TransactionEntity params;
 
   @override
   Widget build(BuildContext context) {
@@ -67,19 +69,20 @@ class TransactionDetailsScreen extends StatelessWidget {
                             const Gap(22),
                             const TransactionSummaryElement(
                               label: 'Recepient',
-                              value: 'John',
+                              value: 'Not available',
                             ),
-                            const TransactionSummaryElement(
+                            TransactionSummaryElement(
                               label: 'Amount',
-                              value: '₦ 50,000',
+                              value: AmountUtil.formatAmount(params.amount),
                             ),
-                            const TransactionSummaryElement(
+                            TransactionSummaryElement(
                               label: 'Transaction date',
-                              value: '23rd Oct. 2020',
+                              value:
+                                  DateUtil.formatDisplayDate(params.entryDate),
                             ),
-                            const TransactionSummaryElement(
+                            TransactionSummaryElement(
                               label: 'Reference',
-                              value: '23rd Oct. 2020',
+                              value: '${params.transactionId}',
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 30),

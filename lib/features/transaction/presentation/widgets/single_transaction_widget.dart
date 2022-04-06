@@ -19,7 +19,9 @@ class SingleTransactionWidget extends StatelessWidget {
       onTap: (() => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const TransactionDetailsScreen(),
+              builder: (context) => TransactionDetailsScreen(
+                params: item,
+              ),
             ),
           )),
       child: Container(
@@ -106,4 +108,28 @@ class SingleTransactionWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+enum TransactionType {
+  transfer,
+  deposit,
+  withdrawal,
+}
+
+TransactionType mapTransactionType(String type) {
+  TransactionType transactionType;
+  switch (type) {
+    case 'WITHDRAWAL':
+      transactionType = TransactionType.withdrawal;
+      break;
+    case 'DEPOSIT':
+      transactionType = TransactionType.deposit;
+      break;
+    case 'TRANSFER':
+      transactionType = TransactionType.transfer;
+      break;
+    default:
+      transactionType = TransactionType.withdrawal;
+  }
+  return transactionType;
 }
