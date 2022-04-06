@@ -4,17 +4,24 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:dio/dio.dart' as _i7;
+import 'package:dio/dio.dart' as _i9;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
     as _i3;
 
 import '../../features/transaction/data/datasources/transaction_remote_datasource.dart'
+    as _i7;
+import '../../features/transaction/data/repositories/transaction_repository_impl.dart'
+    as _i10;
+import '../../features/transaction/domain/usecases/get_transaction_usecase.dart'
+    as _i11;
+import '../../features/transaction/presentation/providers/providers.dart'
     as _i5;
-import '../core.dart' as _i6;
+import '../../features/transaction/transaction.dart' as _i6;
+import '../core.dart' as _i8;
 import '../network/network_info.dart' as _i4;
-import 'register_module.dart' as _i8; // ignore_for_file: unnecessary_lambdas
+import 'register_module.dart' as _i12; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -26,10 +33,16 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => registerModule.internetConnectionChecker);
   gh.lazySingleton<_i4.NetworkInfo>(
       () => _i4.NetworkInfoImpl(get<_i3.InternetConnectionChecker>()));
-  gh.lazySingleton<_i5.TransactionRemoteDataSource>(() =>
-      _i5.TransactionRemoteDataSourceImpl(
-          networkInfo: get<_i6.NetworkInfo>(), dio: get<_i7.Dio>()));
+  gh.lazySingleton<_i5.TransactionProvider>(() => _i5.TransactionProvider(
+      getTransactionsUsecase: get<_i6.GetTransactionsUsecase>()));
+  gh.lazySingleton<_i7.TransactionRemoteDataSource>(() =>
+      _i7.TransactionRemoteDataSourceImpl(
+          networkInfo: get<_i8.NetworkInfo>(), dio: get<_i9.Dio>()));
+  gh.lazySingleton<_i6.TransactionRepository>(() =>
+      _i10.TransactionRepositoryImpl(get<_i6.TransactionRemoteDataSource>()));
+  gh.lazySingleton<_i11.GetTransactionsUsecase>(
+      () => _i11.GetTransactionsUsecase(get<_i6.TransactionRepository>()));
   return get;
 }
 
-class _$RegisterModule extends _i8.RegisterModule {}
+class _$RegisterModule extends _i12.RegisterModule {}
