@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:logger/logger.dart';
 import 'package:renmoney_task/core/core.dart';
 import 'package:renmoney_task/features/transaction/transaction.dart';
 
@@ -33,63 +34,73 @@ class SingleTransactionWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                    color: AppColors.purple.withOpacity(0.10),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      AppAssets.arrowDown,
+            Expanded(
+              flex: 3,
+              child: Row(
+                children: [
+                  Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                      color: AppColors.purple.withOpacity(0.10),
+                      shape: BoxShape.circle,
                     ),
-                  ),
-                ),
-                const Gap(8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text.rich(
-                      TextSpan(
-                        children: <InlineSpan>[
-                          TextSpan(
-                            text: 'Money Transfer to ',
-                            style: TextStyle(
-                              color: AppColors.darkText,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'John',
-                            style: TextStyle(
-                              color: AppColors.purple,
-                            ),
-                          ),
-                        ],
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                        ),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        AppAssets.arrowDown,
                       ),
                     ),
-                    const Gap(8),
-                    TextRegular(
-                      '23rd Oct. 2020',
-                      fontSize: 11,
-                      color: AppColors.lightText,
-                    )
-                  ],
-                ),
-              ],
+                  ),
+                  const Gap(8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            children: <InlineSpan>[
+                              TextSpan(
+                                text: item.comment,
+                                style: const TextStyle(
+                                  color: AppColors.darkText,
+                                ),
+                              ),
+                              // TextSpan(
+                              //   text: 'John',
+                              //   style: const TextStyle(
+                              //     color: AppColors.purple,
+                              //   ),
+                              // ),
+                            ],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13,
+                            ),
+                          ),
+                          maxLines: 1,
+                        ),
+                        const Gap(8),
+                        TextRegular(
+                          '23rd Oct. 2020',
+                          fontSize: 11,
+                          color: AppColors.lightText,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            TextBold(
-              '- ₦ 50,000',
-              fontSize: 14,
-              color: AppColors.brown,
+            const Gap(5),
+            Expanded(
+              flex: 1,
+              child: TextBold(
+                '${item.amount}',
+                fontSize: 14,
+                color: AppColors.brown,
+                textAlign: TextAlign.right,
+              ),
             )
           ],
         ),
