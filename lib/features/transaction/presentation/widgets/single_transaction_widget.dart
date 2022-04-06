@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:renmoney_task/core/core.dart';
-import 'package:renmoney_task/core/utils/amount_util.dart';
-import 'package:renmoney_task/core/utils/date_util.dart';
 import 'package:renmoney_task/features/transaction/transaction.dart';
 
 /// [SingleTransactionWidget] show summary for a particular transaction
