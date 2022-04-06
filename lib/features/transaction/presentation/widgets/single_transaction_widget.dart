@@ -60,7 +60,7 @@ class SingleTransactionWidget extends StatelessWidget {
                           TextSpan(
                             children: <InlineSpan>[
                               TextSpan(
-                                text: item.comment,
+                                text: item.comment ?? 'No description',
                                 style: const TextStyle(
                                   color: AppColors.darkText,
                                 ),
