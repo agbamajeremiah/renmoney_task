@@ -17,7 +17,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
   final TransactionRemoteDataSource transactionRemoteDataSource;
 
   @override
-  Future<Either<Failure, List>> getTransactions() async {
+  Future<Either<Failure, List<TransactionModel>>> getTransactions() async {
     try {
       final response = await transactionRemoteDataSource.getTransactions();
       return Right(response);
