@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'features/home/home.dart';
+import 'package:renmoney_task/core/core.dart';
+import 'package:renmoney_task/features/transaction/transaction.dart';
 
 void main() {
+  configureDependecies();
   runApp(const MyApp());
 }
 
@@ -14,9 +15,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Renmoney Task',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'Product Sans',
+        primarySwatch: const MaterialColor(
+          0xFF7765C4,
+          AppColors.colorScratch,
+        ),
       ),
-      home: const HomeScreen(),
+      home: const TransactionsScreen(),
     );
   }
 }
