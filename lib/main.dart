@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:renmoney_task/core/core.dart';
 import 'package:renmoney_task/features/transaction/transaction.dart';
 
-void main() {
+void main() async {
   configureDependecies();
+  await dotenv.load();
   runApp(const MyApp());
 }
 
