@@ -5,8 +5,23 @@ import 'package:renmoney_task/features/transaction/transaction.dart';
 
 /// [TransactionsScreen] display a list of all transactions
 
-class TransactionsScreen extends StatelessWidget {
+class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TransactionsScreen> createState() => _TransactionsScreenState();
+}
+
+class _TransactionsScreenState extends State<TransactionsScreen> {
+  void _fetchTransactions() async {
+    await sl<TransactionProvider>().fetchTransactions(context);
+  }
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, _fetchTransactions);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
