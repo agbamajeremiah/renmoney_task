@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:renmoney_task/core/core.dart';
 import 'package:renmoney_task/features/transaction/transaction.dart';
@@ -55,7 +56,7 @@ class TransactionRemoteDataSourceImpl implements TransactionRemoteDataSource {
     if (await networkInfo.isConnected) {
       final result = await client.getTransactions(
         token: NetworkCredentials.token,
-        appId: NetworkCredentials.sourceAppId,
+        appId: dotenv.env[Env.sourceAppId]!,
       );
 
       return TransactionListModel.fromJson(
