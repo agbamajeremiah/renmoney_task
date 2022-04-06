@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:logger/logger.dart';
 import 'package:renmoney_task/core/core.dart';
+import 'package:renmoney_task/core/utils/date_util.dart';
 import 'package:renmoney_task/features/transaction/transaction.dart';
 
 /// [SingleTransactionWidget] show summary for a particular transaction
@@ -82,7 +82,7 @@ class SingleTransactionWidget extends StatelessWidget {
                         ),
                         const Gap(8),
                         TextRegular(
-                          '23rd Oct. 2020',
+                          DateUtil.formatDisplayDate(item.entryDate),
                           fontSize: 11,
                           color: AppColors.lightText,
                         )
