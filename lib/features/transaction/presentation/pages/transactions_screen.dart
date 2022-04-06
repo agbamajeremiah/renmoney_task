@@ -52,6 +52,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         : provider.clientTransactions!.isEmpty
                             ? TextBold('No Transactions')
                             : ListView.builder(
+                                physics: const BouncingScrollPhysics(),
                                 itemCount: provider.clientTransactions!.length,
                                 itemBuilder: (context, index) {
                                   /// [SingleTransactionWidget] show summary for a particular transaction
