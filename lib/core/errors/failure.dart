@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// [Failure] class
+/// [Failure] class to map errors
 abstract class Failure extends Equatable {
   const Failure();
 
