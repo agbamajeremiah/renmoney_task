@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:renmoney_task/core/core.dart';
+import 'package:renmoney_task/core/utils/amount_util.dart';
 import 'package:renmoney_task/core/utils/date_util.dart';
 import 'package:renmoney_task/features/transaction/transaction.dart';
 
@@ -96,7 +97,7 @@ class SingleTransactionWidget extends StatelessWidget {
             Expanded(
               flex: 1,
               child: TextBold(
-                '${item.amount}',
+                AmountUtil.formatAmount(item.amount),
                 fontSize: 14,
                 color: AppColors.brown,
                 textAlign: TextAlign.right,
