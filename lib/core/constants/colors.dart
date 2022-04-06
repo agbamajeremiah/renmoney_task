@@ -22,6 +22,9 @@ class AppColors {
   // The green color
   static const green = Color(0xff65C4AD);
 
+  // The blue color
+  static const blue = Color(0xff65ADC4);
+
   // The brown color
   static const brown = Color(0xffE47673);
 

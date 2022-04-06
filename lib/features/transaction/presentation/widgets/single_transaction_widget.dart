@@ -15,6 +15,7 @@ class SingleTransactionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tranxType = mapTransactionType(item.type);
     return GestureDetector(
       onTap: (() => Navigator.push(
             context,
@@ -44,12 +45,20 @@ class SingleTransactionWidget extends StatelessWidget {
                     height: 35,
                     width: 35,
                     decoration: BoxDecoration(
-                      color: AppColors.purple.withOpacity(0.10),
+                      color: tranxType == TransactionType.deposit
+                          ? AppColors.blue.withOpacity(0.10)
+                          : tranxType == TransactionType.withdrawal
+                              ? AppColors.purple.withOpacity(0.10)
+                              : AppColors.brown.withOpacity(0.10),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
                       child: SvgPicture.asset(
-                        AppAssets.arrowDown,
+                        tranxType == TransactionType.deposit
+                            ? AppAssets.arrowDown
+                            : tranxType == TransactionType.withdrawal
+                                ? AppAssets.arrowUp
+                                : AppAssets.phoneWithArrow,
                       ),
                     ),
                   ),
@@ -99,7 +108,9 @@ class SingleTransactionWidget extends StatelessWidget {
               child: TextBold(
                 AmountUtil.formatAmount(item.amount),
                 fontSize: 14,
-                color: AppColors.brown,
+                color: tranxType == TransactionType.withdrawal
+                    ? AppColors.brown
+                    : AppColors.green,
                 textAlign: TextAlign.right,
               ),
             )
@@ -111,7 +122,7 @@ class SingleTransactionWidget extends StatelessWidget {
 }
 
 enum TransactionType {
-  transfer,
+  bills,
   deposit,
   withdrawal,
 }
@@ -120,16 +131,14 @@ TransactionType mapTransactionType(String type) {
   TransactionType transactionType;
   switch (type) {
     case 'WITHDRAWAL':
+    case 'TRANSFER':
       transactionType = TransactionType.withdrawal;
       break;
     case 'DEPOSIT':
       transactionType = TransactionType.deposit;
       break;
-    case 'TRANSFER':
-      transactionType = TransactionType.transfer;
-      break;
     default:
-      transactionType = TransactionType.withdrawal;
+      transactionType = TransactionType.bills;
   }
   return transactionType;
 }
