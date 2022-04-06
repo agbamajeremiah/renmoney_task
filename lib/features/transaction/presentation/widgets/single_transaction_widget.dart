@@ -9,7 +9,9 @@ import 'package:renmoney_task/features/transaction/transaction.dart';
 class SingleTransactionWidget extends StatelessWidget {
   const SingleTransactionWidget({
     Key? key,
+    required this.item,
   }) : super(key: key);
+  final TransactionEntity item;
 
   @override
   Widget build(BuildContext context) {
