@@ -2,13 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:injectable/injectable.dart';
 import 'package:renmoney_task/core/core.dart';
+import 'package:renmoney_task/features/transaction/transaction.dart';
 import 'transaction_api_client.dart';
 
 /// [TransactionRemoteDataSource] is responsible for retrieving/sending data
 ///  from/to the remote server.
 abstract class TransactionRemoteDataSource {
-  /// [getTransaction] returns a list of transactions
-  Future<List> getTransactions();
+  /// [getTransactions] returns a list of clients transactions
+  Future<List<TransactionModel>> getTransactions();
 }
 
 /// [TransactionRemoteDataSourceImpl] implements [TransactionRemoteDataSource]
@@ -50,14 +51,16 @@ class TransactionRemoteDataSourceImpl implements TransactionRemoteDataSource {
   late TransactionApiClient client;
 
   @override
-  Future<List> getTransactions() async {
+  Future<List<TransactionModel>> getTransactions() async {
     if (await networkInfo.isConnected) {
       final result = await client.getTransactions(
         token: NetworkCredentials.token,
         appId: NetworkCredentials.sourceAppId,
       );
 
-      return ((result.response.data as Map<String, dynamic>)['data']);
+      return TransactionListModel.fromJson(
+              (result.response.data as Map<String, dynamic>)['data'])
+          .clientTransactions;
     } else {
       throw NoInternetException();
     }

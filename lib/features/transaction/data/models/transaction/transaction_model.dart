@@ -10,8 +10,8 @@ part 'transaction_model.g.dart';
 class TransactionModel extends TransactionEntity {
   const TransactionModel({
     required double amount,
-    required double balance,
-    required String comment,
+    required String balance,
+    required String? comment,
     required String currencyCode,
     required DateTime entryDate,
     required int transactionId,

@@ -9,8 +9,8 @@ part of 'transaction_model.dart';
 TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) =>
     TransactionModel(
       amount: (json['amount'] as num).toDouble(),
-      balance: (json['balance'] as num).toDouble(),
-      comment: json['comment'] as String,
+      balance: json['balance'] as String,
+      comment: json['comment'] as String?,
       currencyCode: json['currencyCode'] as String,
       entryDate: DateTime.parse(json['entryDate'] as String),
       transactionId: json['transactionId'] as int,

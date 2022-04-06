@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 /// [TransactionEntity] is the entity that represents a transaction
 class TransactionEntity extends Equatable {
   final double amount;
-  final double balance;
-  final String comment;
+  final String balance;
+  final String? comment;
   final String currencyCode;
   final DateTime entryDate;
   final int transactionId;
