@@ -33,6 +33,8 @@ class TransactionRepositoryImpl implements TransactionRepository {
             ServerFailure(
               message: (e.response!.data as Map<String, dynamic>)['error']
                       as String? ??
+                  (e.response!.data as Map<String, dynamic>)['message']
+                      as String? ??
                   'Service unavailable, please try again!',
             ),
           );
