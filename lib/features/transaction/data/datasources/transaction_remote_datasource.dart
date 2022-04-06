@@ -33,7 +33,7 @@ class TransactionRemoteDataSourceImpl implements TransactionRemoteDataSource {
     );
     client = TransactionApiClient(
       dio,
-      baseUrl: 'https://api-sandbox.renmoney.com/deposit-transfer/api/v3',
+      baseUrl: NetworkCredentials.baseUrl,
     );
   }
 
